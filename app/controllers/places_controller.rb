@@ -17,7 +17,6 @@ class PlacesController < ApplicationController
   # POST /places
   def create
     @place = current_user.places.build(place_params)
-
     if @place.save
       render json: @place, status: :created, location: @place
     else
@@ -37,10 +36,10 @@ class PlacesController < ApplicationController
   # DELETE /places/1
   def destroy
     @place.destroy
-    if @location.destroy
+    if @place.destroy
       head :no_content
     else
-      render json: @location.errors, status: :unprocessable_entity
+      render json: @place.errors, status: :unprocessable_entity
     end
 end
 
@@ -48,7 +47,7 @@ end
     # Use callbacks to share common setup or constraints between actions.
     def set_place
       validate_user
-      @place = current_user.place.find(params[:id])
+      @place = Place.find(params[:id])
     end
 
     def validate_user
