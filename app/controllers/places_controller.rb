@@ -47,7 +47,7 @@ end
     # Use callbacks to share common setup or constraints between actions.
     def set_place
       validate_user
-      @place = Place.find(params[:id])
+      @place = current_user.places.find(params[:id])
     end
 
     def validate_user
